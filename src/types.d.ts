@@ -12,3 +12,10 @@ export type Project = {
   created_at: string;
 };
 
+export type Status = {
+  id: number;
+  project_id: number;
+  status: number;
+  error_message?: string;
+  created_at: string;
+};
