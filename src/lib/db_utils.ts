@@ -1,4 +1,4 @@
-import { Project, Status } from "@/types";
+import { Project } from "@/types";
 import Database from "better-sqlite3";
 const db = new Database(process.env.DB_PATH);
 db.pragma("journal_mode = WAL");
