@@ -15,7 +15,7 @@ export function fetch_project(id: string): Project {
 
 export function fetch_project_statuses(id: string): Status[] {
   const stmt = db.prepare(
-    "SELECT * FROM statuses WHERE project_id = ? ORDER BY created_at DESC;"
+    "SELECT * FROM statuses WHERE project_id = ? ORDER BY created_at DESC;",
   );
   return stmt.all(id) as Status[];
 }

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { fetch_projects } from "@/lib/db_utils";
-import { Project } from "@/types";
 
 export default async function Home() {
   const projects = await fetch_projects();
