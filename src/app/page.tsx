@@ -6,9 +6,9 @@ export default async function Home() {
   const projects = await fetch_projects();
 
   return (
-    <main>
+    <main className="container">
       <h1>Project Status</h1>
-      <table>
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Project</th>
@@ -21,7 +21,17 @@ export default async function Home() {
               <td>
                 <Link href={`/projects/${project.id}`}>{project.name}</Link>
               </td>
-              <td>{project.status === 0 ? "down" : "up"}</td>
+              <td>
+                <span
+                  className={
+                    project.status === 0
+                      ? "p-1 text-danger-emphasis bg-danger-subtle"
+                      : "p-1 text-success-emphasis bg-success-subtle"
+                  }
+                >
+                  {project.status === 0 ? "down" : "up"}
+                </span>
+              </td>
             </tr>
           ))}
         </tbody>

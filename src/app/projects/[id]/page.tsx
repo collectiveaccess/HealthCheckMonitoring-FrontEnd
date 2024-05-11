@@ -11,14 +11,10 @@ export default async function ProjectsDetail({
   const statuses = await fetch_project_statuses(id);
 
   return (
-    <main>
-      <h1>Project Info</h1>
-      <table>
+    <main className="container">
+      <h1>{project.name}</h1>
+      <table className="table">
         <tbody>
-          <tr>
-            <th>Name</th>
-            <td>{project.name}</td>
-          </tr>
           <tr>
             <th>URL</th>
             <td>
@@ -55,8 +51,8 @@ export default async function ProjectsDetail({
           </tr>
         </tbody>
       </table>
-      <h1>Status History</h1>
-      <table>
+      <h2>Status History</h2>
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Status</th>
@@ -67,7 +63,17 @@ export default async function ProjectsDetail({
         <tbody>
           {statuses.map((status) => (
             <tr key={status.id}>
-              <td>{status.status === 0 ? "down" : "up"}</td>
+              <td>
+                <span
+                  className={
+                    status.status === 0
+                      ? "p-1 text-danger-emphasis bg-danger-subtle"
+                      : "p-1 text-success-emphasis bg-success-subtle"
+                  }
+                >
+                  {status.status === 0 ? "down" : "up"}
+                </span>
+              </td>
               <td>{status.created_at}</td>
               <td>{status.error_message}</td>
             </tr>
