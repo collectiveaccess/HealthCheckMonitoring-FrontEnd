@@ -4,7 +4,7 @@ const db = new Database(process.env.DB_PATH);
 db.pragma("journal_mode = WAL");
 
 export function fetch_projects(): Project[] {
-  const stmt = db.prepare("SELECT * FROM projects;");
+  const stmt = db.prepare("SELECT * FROM projects ORDER BY name;");
   return stmt.all() as Project[];
 }
 
