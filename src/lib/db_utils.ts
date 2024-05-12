@@ -13,9 +13,20 @@ export function fetch_project(id: string): Project {
   return stmt.get(id) as Project;
 }
 
-export function fetch_project_statuses(id: string): Status[] {
+export function fetch_project_statuses(
+  id: string,
+  limit: number,
+  offset: number,
+): Status[] {
   const stmt = db.prepare(
-    "SELECT * FROM statuses WHERE project_id = ? ORDER BY created_at DESC;",
+    "SELECT * FROM statuses WHERE project_id = ? ORDER BY created_at DESC LIMIT ? OFFSET ? ;",
   );
-  return stmt.all(id) as Status[];
+  return stmt.all(id, limit, offset) as Status[];
+}
+
+export function fetch_project_statuses_count(id: string) {
+  const stmt = db.prepare(
+    "SELECT COUNT(*) AS count FROM statuses WHERE project_id = ?;",
+  );
+  return stmt.get(id)["count"];
 }

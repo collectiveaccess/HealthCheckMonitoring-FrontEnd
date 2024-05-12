@@ -1,6 +1,7 @@
-import Link from "next/link";
-import { fetch_project, fetch_project_statuses } from "@/lib/db_utils";
-import { Project, Status } from "@/types";
+import { fetch_project } from "@/lib/db_utils";
+import ProjectDetail from "@/components/ProjectDetails";
+import { headers } from "next/headers";
+import { DEFAULT_PER_PAGE } from "@/data/constants";
 
 export default async function ProjectsDetail({
   params: { id },
@@ -8,78 +9,30 @@ export default async function ProjectsDetail({
   params: { id: string };
 }) {
   const project = await fetch_project(id);
-  const statuses = await fetch_project_statuses(id);
+  if (project === undefined) {
+    return (
+      <main className="container">
+        <p>Invalid project id</p>
+      </main>
+    );
+  }
+
+  const offset = 0;
+  const perPage = Number(process.env.NEXT_PUBLIC_PER_PAGE) || DEFAULT_PER_PAGE;
+  const headersList = headers() as any;
+  const host = headersList.headers.host;
+  const proto = headersList.headers["x-forwarded-proto"];
+  const url = `${proto}://${host}/api/project_status/${project.id}?offset=${offset}`;
+
+  const res = await fetch(url);
+  const json = await res.json();
 
   return (
-    <main className="container">
-      <h1>{project.name}</h1>
-      <table className="table">
-        <tbody>
-          <tr>
-            <th>URL</th>
-            <td>
-              <Link href={project.url}>{project.url}</Link>
-            </td>
-          </tr>
-          <tr>
-            <th>Notes</th>
-            <td>{project.notes}</td>
-          </tr>
-          <tr>
-            <th>Client</th>
-            <td>{project.client_name}</td>
-          </tr>
-          <tr>
-            <th>Cluster</th>
-            <td>{project.cluster_name}</td>
-          </tr>
-          <tr>
-            <th>Status</th>
-            <td>{project.status === 0 ? "down" : "up"}</td>
-          </tr>
-          <tr>
-            <th>Slack alert</th>
-            <td>{project.slack_alert === 0 ? "off" : "on"}</td>
-          </tr>
-          <tr>
-            <th>Email alert</th>
-            <td>{project.email_alert === 0 ? "off" : "on"}</td>
-          </tr>
-          <tr>
-            <th>check frequency</th>
-            <td>{project.check_frequency} minutes</td>
-          </tr>
-        </tbody>
-      </table>
-      <h2>Status History</h2>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Error</th>
-          </tr>
-        </thead>
-        <tbody>
-          {statuses.map((status) => (
-            <tr key={status.id}>
-              <td>
-                <span
-                  className={
-                    status.status === 0
-                      ? "p-1 text-danger-emphasis bg-danger-subtle"
-                      : "p-1 text-success-emphasis bg-success-subtle"
-                  }
-                >
-                  {status.status === 0 ? "down" : "up"}
-                </span>
-              </td>
-              <td>{status.created_at}</td>
-              <td>{status.error_message}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </main>
+    <ProjectDetail
+      project={project}
+      statuses={json.data}
+      statusesCount={json.count}
+      perPage={perPage}
+    />
   );
 }
