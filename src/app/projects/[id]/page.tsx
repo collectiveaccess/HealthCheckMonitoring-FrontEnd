@@ -1,5 +1,5 @@
 import { fetch_project } from "@/lib/db_utils";
-import ProjectDetail from "@/components/ProjectDetails/index";
+import ProjectDetail from "@/components/ProjectDetails/ProjectDetails";
 import { headers } from "next/headers";
 import { DEFAULT_PER_PAGE } from "@/data/constants";
 
