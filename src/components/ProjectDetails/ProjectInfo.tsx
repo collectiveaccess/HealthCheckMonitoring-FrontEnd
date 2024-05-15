@@ -34,11 +34,11 @@ export default function ProjectInfo(props: Props) {
           <td>{project.status === 0 ? "down" : "up"}</td>
         </tr>
         <tr>
-          <th>Slack alert</th>
+          <th>Slack notification</th>
           <td>{project.slack_alert === 0 ? "off" : "on"}</td>
         </tr>
         <tr>
-          <th>Email alert</th>
+          <th>Email notification</th>
           <td>{project.email_alert === 0 ? "off" : "on"}</td>
         </tr>
         <tr>

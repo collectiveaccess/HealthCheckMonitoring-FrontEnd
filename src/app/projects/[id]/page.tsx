@@ -3,7 +3,7 @@ import ProjectDetail from "@/components/ProjectDetails/ProjectDetails";
 import { headers } from "next/headers";
 import { DEFAULT_PER_PAGE } from "@/data/constants";
 
-export default async function ProjectsDetail({
+export default async function ProjectsDetailPage({
   params: { id },
 }: {
   params: { id: string };
