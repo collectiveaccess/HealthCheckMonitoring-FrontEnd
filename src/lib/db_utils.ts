@@ -53,5 +53,6 @@ export function fetch_project_statuses_count(id: string) {
   const stmt = db.prepare(
     "SELECT COUNT(*) AS count FROM statuses WHERE project_id = ?;",
   );
-  return stmt.get(id)["count"];
+  const results = stmt.get(id) as { count: number };
+  return results["count"];
 }
