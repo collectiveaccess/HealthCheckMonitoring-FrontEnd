@@ -3,6 +3,7 @@
 import { Project, Status } from "@/types";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
+import { formatProjectStatus, formatProjectStatusClass } from "@/lib/ui_utils";
 
 type Props = {
   project: Project;
@@ -43,14 +44,8 @@ export default function ProjectStatus(props: Props) {
           {displayStatuses.map((status) => (
             <tr key={status.id}>
               <td>
-                <span
-                  className={
-                    status.status === 0
-                      ? "p-1 text-danger-emphasis bg-danger-subtle"
-                      : "p-1 text-success-emphasis bg-success-subtle"
-                  }
-                >
-                  {status.status === 0 ? "down" : "up"}
+                <span className={formatProjectStatusClass(status.status)}>
+                  {formatProjectStatus(status.status)}
                 </span>
               </td>
               <td>{status.created_at}</td>

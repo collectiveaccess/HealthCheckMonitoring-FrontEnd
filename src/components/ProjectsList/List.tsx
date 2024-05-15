@@ -1,5 +1,6 @@
 import { Project } from "@/types";
 import Link from "next/link";
+import { formatProjectStatusClass, formatProjectStatus } from "@/lib/ui_utils";
 
 type Prop = {
   projects: Project[];
@@ -24,14 +25,8 @@ export default function ProjectList(props: Prop) {
                 <Link href={`/projects/${project.id}`}>{project.name}</Link>
               </td>
               <td>
-                <span
-                  className={
-                    project.status === 0
-                      ? "p-1 text-danger-emphasis bg-danger-subtle"
-                      : "p-1 text-success-emphasis bg-success-subtle"
-                  }
-                >
-                  {project.status === 0 ? "down" : "up"}
+                <span className={formatProjectStatusClass(project.status)}>
+                  {formatProjectStatus(project.status)}
                 </span>
               </td>
             </tr>

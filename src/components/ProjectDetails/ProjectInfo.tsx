@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Project } from "@/types";
+import { formatProjectStatus, formatProjectStatusClass } from "@/lib/ui_utils";
 
 type Props = {
   project: Project;
@@ -31,7 +32,11 @@ export default function ProjectInfo(props: Props) {
         </tr>
         <tr>
           <th>Status</th>
-          <td>{project.status === 0 ? "down" : "up"}</td>
+          <td>
+            <span className={formatProjectStatusClass(project.status)}>
+              {formatProjectStatus(project.status)}
+            </span>
+          </td>
         </tr>
         <tr>
           <th>Slack notification</th>
