@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import TextInput from "@/components/Form/TextInput";
-import CheckboxInput from "@/components/Form/CheckboxInput";
+import TextInput from "@/components/ui/form/TextInput";
+import CheckboxInput from "@/components/ui/form/CheckboxInput";
 import { NewProject } from "@/types";
 import { useRouter } from "next/navigation";
 

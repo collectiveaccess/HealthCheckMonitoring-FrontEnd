@@ -1,5 +1,5 @@
-import ProjectInfo from "@/components/ProjectDetails/ProjectInfo";
-import ProjectStatus from "@/components/ProjectDetails/ProjectStatus";
+import ProjectInfo from "./ProjectInfo";
+import ProjectStatus from "./ProjectStatus";
 import { Project, Status } from "@/types";
 
 type Props = {
