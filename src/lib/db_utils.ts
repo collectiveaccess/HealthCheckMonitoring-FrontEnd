@@ -1,4 +1,4 @@
-import { Project, Status } from "@/types";
+import { Project, Status, NewProject } from "@/types";
 import Database from "better-sqlite3";
 const db = new Database(process.env.DB_PATH);
 db.pragma("journal_mode = WAL");
@@ -11,6 +11,31 @@ export function fetch_projects(): Project[] {
 export function fetch_project(id: string): Project {
   const stmt = db.prepare("SELECT * FROM projects WHERE id = ?;");
   return stmt.get(id) as Project;
+}
+
+export function create_project(
+  name: string,
+  url: string,
+  notes: string | null,
+  client_name: string,
+  cluster_name: string,
+  slack_alert: number,
+  email_alert: number,
+  check_frequency: number,
+): Database.RunResult {
+  const stmt = db.prepare(
+    "INSERT INTO projects (name, url, notes, client_name, cluster_name, slack_alert, email_alert, check_frequency) VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
+  );
+  return stmt.run(
+    name,
+    url,
+    notes,
+    client_name,
+    cluster_name,
+    slack_alert,
+    email_alert,
+    check_frequency,
+  );
 }
 
 export function fetch_project_statuses(
