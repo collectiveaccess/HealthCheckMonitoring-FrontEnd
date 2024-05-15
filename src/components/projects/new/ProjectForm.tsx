@@ -14,18 +14,19 @@ export default function ProjectForm() {
   async function createProject(data: any) {
     let notes = data.notes.trim();
     const requestBody: NewProject = {
-      name: data.projectName.trim(),
+      name: data.name.trim(),
       url: data.url.trim(),
       notes: notes === "" ? null : notes,
-      client_name: data.clientName.trim(),
-      cluster_name: data.clusterName.trim(),
-      email_alert: data.emailAlert === true ? 1 : 0,
-      slack_alert: data.slackAlert === true ? 1 : 0,
-      check_frequency: data.checkFrequency.trim(),
+      client_name: data.client_name.trim(),
+      cluster_name: data.cluster_name.trim(),
+      email_alert: data.email_alert === true ? 1 : 0,
+      slack_alert: data.slack_alert === true ? 1 : 0,
+      check_frequency: data.check_frequency,
     };
 
     try {
-      const res = await fetch(`/api/projects/`, {
+      const url = `${process.env.NEXT_PUBLIC_API_BASE}/projects`;
+      const res = await fetch(url, {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
@@ -44,12 +45,7 @@ export default function ProjectForm() {
   return (
     <form onSubmit={handleSubmit(createProject)}>
       <div className="mb-3">
-        <TextInput
-          label="Name"
-          id="projectName"
-          required={true}
-          formObj={formObj}
-        />
+        <TextInput label="Name" id="name" required={true} formObj={formObj} />
       </div>
       <div className="mb-3">
         <TextInput
@@ -66,7 +62,7 @@ export default function ProjectForm() {
       <div className="mb-3">
         <TextInput
           label="Client name"
-          id="clientName"
+          id="client_name"
           required={true}
           formObj={formObj}
         />
@@ -74,7 +70,7 @@ export default function ProjectForm() {
       <div className="mb-3">
         <TextInput
           label="Cluster name"
-          id="clusterName"
+          id="cluster_name"
           required={true}
           formObj={formObj}
         />
@@ -82,21 +78,21 @@ export default function ProjectForm() {
       <div className="mb-3">
         <CheckboxInput
           label="Email notification"
-          id="emailAlert"
+          id="email_alert"
           formObj={formObj}
         />
       </div>
       <div className="mb-3">
         <CheckboxInput
           label="Slack notification"
-          id="slackAlert"
+          id="slack_alert"
           formObj={formObj}
         />
       </div>
       <div className="mb-3">
         <TextInput
           label="Check frequency"
-          id="checkFrequency"
+          id="check_frequency"
           required={true}
           formObj={formObj}
           type="number"
