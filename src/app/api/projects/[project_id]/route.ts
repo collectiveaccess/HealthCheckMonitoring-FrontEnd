@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
-import { update_project, fetch_project } from "@/lib/db_utils";
+import { NextRequest } from "next/server";
+import { update_project } from "@/lib/db_utils";
 import { NewProject } from "@/types";
 
 type Params = {
@@ -23,16 +23,4 @@ export async function PUT(request: NextRequest, { params }: Params) {
   );
 
   return Response.json({ message: "project updated", result });
-}
-
-export async function GET(request: NextRequest, { params }: Params) {
-  const projectId = params.project_id;
-  let result = fetch_project(projectId);
-  console.log("GET > fetch_project:", result);
-
-  if (result) {
-    return Response.json(result);
-  } else {
-    return Response.json({ error: "no project found" });
-  }
 }

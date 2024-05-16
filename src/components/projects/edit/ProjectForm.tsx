@@ -5,7 +5,6 @@ import TextInput from "@/components/ui/form/TextInput";
 import CheckboxInput from "@/components/ui/form/CheckboxInput";
 import { NewProject, Project } from "@/types";
 import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 type Props = {
   project: Project;
@@ -50,12 +49,11 @@ export default function ProjectForm(props: Props) {
         },
       });
       const json = await res.json();
-      console.log("??", json);
       if (json.result && json.result.changes === 1) {
         // NOTE: add router.refresh() so NEXT.js will render the page dynamically
         // instead of using cache  https://stackoverflow.com/a/78012334
         router.refresh();
-        router.push(`/projects/${project.id}?`);
+        router.push(`/projects/${project.id}`);
       }
     } catch (error) {
       console.error(error);

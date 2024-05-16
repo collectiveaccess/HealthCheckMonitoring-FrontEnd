@@ -7,11 +7,8 @@ export default async function ProjectsEditPage({
 }: {
   params: { id: string };
 }) {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE}/projects/${id}`;
-  const res = await fetch(url, { next: { revalidate: 0 } });
-  const project = await res.json();
-
-  if (project.error) {
+  const project = await fetch_project(id);
+  if (project === undefined) {
     return (
       <main className="container">
         <p>Invalid project id</p>
