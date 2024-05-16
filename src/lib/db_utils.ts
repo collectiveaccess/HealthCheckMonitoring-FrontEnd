@@ -38,6 +38,33 @@ export function create_project(
   );
 }
 
+export function update_project(
+  id: number,
+  name: string,
+  url: string,
+  notes: string | null,
+  client_name: string,
+  cluster_name: string,
+  slack_alert: number,
+  email_alert: number,
+  check_frequency: number,
+): Database.RunResult {
+  const stmt = db.prepare(
+    "UPDATE projects SET name = ?, url = ?, notes = ?, client_name = ?, cluster_name = ?, slack_alert = ?, email_alert = ?, check_frequency = ? WHERE id = ?;",
+  );
+  return stmt.run(
+    name,
+    url,
+    notes,
+    client_name,
+    cluster_name,
+    slack_alert,
+    email_alert,
+    check_frequency,
+    id,
+  );
+}
+
 export function fetch_project_statuses(
   id: string,
   limit: number,

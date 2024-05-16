@@ -7,7 +7,7 @@ type Props = {
   label: string;
   id: string;
   required?: boolean;
-  formObj: UseFormReturn;
+  formObj: UseFormReturn<any>;
   type?: string;
 };
 

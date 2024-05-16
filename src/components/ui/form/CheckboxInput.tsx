@@ -6,7 +6,7 @@ import { type UseFormReturn } from "react-hook-form";
 type Props = {
   label: string;
   id: string;
-  formObj: UseFormReturn;
+  formObj: UseFormReturn<any>;
 };
 
 export default function RadioInput(props: Props) {
