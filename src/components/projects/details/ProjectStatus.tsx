@@ -22,9 +22,8 @@ export default function ProjectStatus(props: Props) {
 
   const handlePageClick = async (event: any) => {
     const offset = event.selected * perPage;
-    const res = await fetch(
-      `/api/project_status/${project.id}?offset=${offset}`,
-    );
+    const url = `${process.env.NEXT_PUBLIC_API_BASE}/project_status/${project.id}?offset=${offset}`;
+    const res = await fetch(url);
     const json = await res.json();
     setDisplayStatuses(json.data);
     setDisplayStatusesCount(json.count);
