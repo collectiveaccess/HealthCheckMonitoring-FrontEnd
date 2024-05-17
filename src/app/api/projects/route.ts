@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { create_project, fetch_projects } from "@/lib/db_utils";
+import { create_project } from "@/lib/db_utils";
 import { NewProject } from "@/types";
 
 export async function POST(request: NextRequest) {
@@ -17,10 +17,4 @@ export async function POST(request: NextRequest) {
   );
 
   return Response.json({ message: "project created", result });
-}
-
-export async function GET(request: NextRequest) {
-  let result = fetch_projects();
-
-  return Response.json(result);
 }
