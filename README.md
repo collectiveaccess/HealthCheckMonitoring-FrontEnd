@@ -20,6 +20,10 @@ npm install
 
       - `NEXT_PUBLIC_PER_PAGE` - number of statuses to show on project deatails page.
 
+      - `NEXT_PUBLIC_PER_PAGE` - number of statuses to show on the project details page
+
+      - `NEXT_PUBLIC_UPDATE_FREQUENCY_MINUTES` - how frequently to refetch project statuses
+
 3. Start app
 
 ```bash
