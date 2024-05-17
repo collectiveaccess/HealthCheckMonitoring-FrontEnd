@@ -65,6 +65,11 @@ export function update_project(
   );
 }
 
+export function delete_project(id: string) {
+  const stmt = db.prepare("DELETE FROM projects WHERE id = ?;");
+  return stmt.run(id);
+}
+
 export function fetch_project_statuses(
   id: string,
   limit: number,

@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { update_project } from "@/lib/db_utils";
+import { update_project, delete_project } from "@/lib/db_utils";
 import { NewProject } from "@/types";
 
 type Params = {
@@ -23,4 +23,16 @@ export async function PUT(request: NextRequest, { params }: Params) {
   );
 
   return Response.json({ message: "project updated", result });
+}
+
+export async function DELETE(request: NextRequest, { params }: Params) {
+  const projectId = params.project_id;
+  let result = delete_project(projectId);
+  console.log(result);
+
+  if (result) {
+    return Response.json(result);
+  } else {
+    return Response.json({ error: "no project found" });
+  }
 }
