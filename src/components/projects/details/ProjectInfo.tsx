@@ -23,28 +23,20 @@ export default function ProjectInfo(props: Props) {
           <td>{project.notes}</td>
         </tr>
         <tr>
-          <th>Client</th>
+          <th>Client name</th>
           <td>{project.client_name}</td>
         </tr>
         <tr>
-          <th>Cluster</th>
+          <th>Cluster name</th>
           <td>{project.cluster_name}</td>
-        </tr>
-        <tr>
-          <th>Status</th>
-          <td>
-            <span className={formatProjectStatusClass(project.status)}>
-              {formatProjectStatus(project.status)}
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <th>Slack notification</th>
-          <td>{project.slack_alert === 0 ? "off" : "on"}</td>
         </tr>
         <tr>
           <th>Email notification</th>
           <td>{project.email_alert === 0 ? "off" : "on"}</td>
+        </tr>
+        <tr>
+          <th>Slack notification</th>
+          <td>{project.slack_alert === 0 ? "off" : "on"}</td>
         </tr>
         <tr>
           <th>check frequency</th>

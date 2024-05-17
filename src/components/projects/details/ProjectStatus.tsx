@@ -1,7 +1,7 @@
 "use client";
 
 import { Project, Status } from "@/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { formatProjectStatus, formatProjectStatusClass } from "@/lib/ui_utils";
 
@@ -20,9 +20,29 @@ export default function ProjectStatus(props: Props) {
 
   const pageCount = Math.ceil(displayStatusesCount / perPage);
 
+  useEffect(() => {
+    const url = `${process.env.NEXT_PUBLIC_API_BASE}/project_status/${project.id}?offset=0`;
+    const intervalId = setInterval(
+      () => {
+        fetch(url)
+          .then((res) => res.json())
+          .then((json) => {
+            setDisplayStatuses(json.data);
+            setDisplayStatusesCount(json.count);
+          });
+      },
+      Number(process.env.NEXT_PUBLIC_UPDATE_FREQUENCY_MINUTES) * 60 * 1000,
+    );
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [project.id]);
+
   const handlePageClick = async (event: any) => {
     const offset = event.selected * perPage;
     const url = `${process.env.NEXT_PUBLIC_API_BASE}/project_status/${project.id}?offset=${offset}`;
+
     const res = await fetch(url);
     const json = await res.json();
     setDisplayStatuses(json.data);
