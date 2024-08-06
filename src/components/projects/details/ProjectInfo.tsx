@@ -31,6 +31,10 @@ export default function ProjectInfo(props: Props) {
           <td>{project.cluster_name}</td>
         </tr>
         <tr>
+          <th>Recipients</th>
+          <td>{project.recipients}</td>
+        </tr>
+        <tr>
           <th>Email notification</th>
           <td>{project.email_alert === 0 ? "off" : "on"}</td>
         </tr>

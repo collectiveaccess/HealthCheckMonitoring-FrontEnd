@@ -20,6 +20,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     body.slack_alert,
     body.email_alert,
     body.check_frequency,
+    body.recipients,
   );
 
   return Response.json({ message: "project updated", result });

@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 type Props = {
   project: Project;
 };
+
 export default function ProjectForm(props: Props) {
   const { project } = props;
   const formObj = useForm({
@@ -21,6 +22,7 @@ export default function ProjectForm(props: Props) {
       email_alert: project.email_alert,
       slack_alert: project.slack_alert,
       check_frequency: project.check_frequency,
+      recipients: project.recipients,
     },
   });
   const { handleSubmit } = formObj;
@@ -37,6 +39,7 @@ export default function ProjectForm(props: Props) {
       email_alert: data.email_alert === true ? 1 : 0,
       slack_alert: data.slack_alert === true ? 1 : 0,
       check_frequency: data.check_frequency,
+      recipients: data.recipients,
     };
 
     try {
@@ -48,8 +51,13 @@ export default function ProjectForm(props: Props) {
           "Content-Type": "application/json",
         },
       });
+
       const json = await res.json();
+      console.log("JSON RESULT: ", json.result)
+
       if (json.result && json.result.changes === 1) {
+        console.log("JSON RESULT: ", json.result)
+
         // NOTE: add router.refresh() so NEXT.js will render the page dynamically
         // instead of using cache  https://stackoverflow.com/a/78012334
         router.refresh();
@@ -114,6 +122,14 @@ export default function ProjectForm(props: Props) {
           required={true}
           formObj={formObj}
           type="number"
+        />
+      </div>
+      <div className="mb-3">
+        <TextInput
+          label="Recipients"
+          id="recipients"
+          required={true}
+          formObj={formObj}
         />
       </div>
       <input type="submit" />

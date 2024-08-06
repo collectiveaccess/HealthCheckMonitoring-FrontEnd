@@ -24,9 +24,10 @@ export function create_project(
   slack_alert: number,
   email_alert: number,
   check_frequency: number,
+  recipients: string,
 ): Database.RunResult {
   const stmt = db.prepare(
-    "INSERT INTO projects (name, url, notes, client_name, cluster_name, slack_alert, email_alert, check_frequency) VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
+    "INSERT INTO projects (name, url, notes, client_name, cluster_name, slack_alert, email_alert, check_frequency, recipients) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);",
   );
   return stmt.run(
     name,
@@ -37,6 +38,7 @@ export function create_project(
     slack_alert,
     email_alert,
     check_frequency,
+    recipients,
   );
 }
 
@@ -50,9 +52,10 @@ export function update_project(
   slack_alert: number,
   email_alert: number,
   check_frequency: number,
+  recipients: string,
 ): Database.RunResult {
   const stmt = db.prepare(
-    "UPDATE projects SET name = ?, url = ?, notes = ?, client_name = ?, cluster_name = ?, slack_alert = ?, email_alert = ?, check_frequency = ? WHERE id = ?;",
+    "UPDATE projects SET name = ?, url = ?, notes = ?, client_name = ?, cluster_name = ?, slack_alert = ?, email_alert = ?, check_frequency = ?, recipients = ? WHERE id = ?;",
   );
   return stmt.run(
     name,
@@ -63,6 +66,7 @@ export function update_project(
     slack_alert,
     email_alert,
     check_frequency,
+    recipients,
     id,
   );
 }

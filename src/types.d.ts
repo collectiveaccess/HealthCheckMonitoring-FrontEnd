@@ -7,6 +7,7 @@ export interface NewProject {
   slack_alert: number;
   email_alert: number;
   check_frequency: number;
+  recipients: string;
 }
 
 export interface Project extends NewProject {

@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
     body.slack_alert,
     body.email_alert,
     body.check_frequency,
+    body.recipients,
   );
 
   return Response.json({ message: "project created", result });

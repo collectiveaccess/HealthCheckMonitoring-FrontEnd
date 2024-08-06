@@ -22,6 +22,7 @@ export default function ProjectForm() {
       email_alert: data.email_alert === true ? 1 : 0,
       slack_alert: data.slack_alert === true ? 1 : 0,
       check_frequency: data.check_frequency,
+      recipients: data.recipients,
     };
 
     try {
@@ -96,6 +97,14 @@ export default function ProjectForm() {
           required={true}
           formObj={formObj}
           type="number"
+        />
+      </div>
+      <div className="mb-3">
+        <TextInput
+          label="Recipients"
+          id="recipients"
+          required={true}
+          formObj={formObj}
         />
       </div>
       <input type="submit" />
